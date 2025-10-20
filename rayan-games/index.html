@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rayan Games — Jeux téléchargeables</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Almarai:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <img src="assets/logo.svg" alt="Rayan Games" class="logo-img">
+      <h1 class="logo">Rayan <span class="neon">Games</span></h1>
+      <p class="tag" data-i18n="tag">Jeux légers — téléchargeables — sécurisé</p>
+
+      <div class="lang-switch">
+        <button data-lang="fr" class="lang-btn active">FR</button>
+        <button data-lang="eng" class="lang-btn">ENG</button>
+        <button data-lang="es" class="lang-btn">ES</button>
+        <button data-lang="ar" class="lang-btn">AR</button>
+      </div>
+
+      <a class="cta" href="#games" data-i18n="discover">Découvrir les jeux</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="games" class="games-section">
+      <h2 data-i18n="our_games">Nos jeux</h2>
+      <p class="lead" data-i18n="lead">Télécharge et joue — promotion lancement.</p>
+
+      <div class="cards">
+        <article class="card" data-game="demo1.zip">
+          <img src="assets/games/game1.jpg" alt="Jeu 1">
+          <div class="card-body">
+            <h3 data-i18n="game1_title">Runner Neon</h3>
+            <p data-i18n="game1_desc">Un jeu d’arcade rapide — test gratuit.</p>
+            <div class="actions">
+              <a class="btn ghost" href="assets/games/demo1.zip" target="_blank" rel="noopener" data-i18n="play_online">Télécharger (test)</a>
+              <button class="btn primary purchase" data-file="demo1.zip" data-price="600" data-i18n="buy">Télécharger — 600 DA</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="card" data-game="demo2.zip">
+          <img src="assets/games/game2.jpg" alt="Jeu 2">
+          <div class="card-body">
+            <h3 data-i18n="game2_title">Puzzle Galaxy</h3>
+            <p data-i18n="game2_desc">Puzzle relaxant, idéal pour mobile.</p>
+            <div class="actions">
+              <a class="btn ghost" href="assets/games/demo2.zip" target="_blank" rel="noopener" data-i18n="play_online">Télécharger (test)</a>
+              <button class="btn primary purchase" data-file="demo2.zip" data-price="400" data-i18n="buy">Télécharger — 400 DA</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2 data-i18n="contact">Contact / Support</h2>
+      <p data-i18n="contact_text">Besoin d’aide ? Envoie un message.</p>
+      <form id="contactForm" name="contact">
+        <label data-i18n="name">Ton nom<input name="cname" required></label>
+        <label data-i18n="email">Ton email<input type="email" name="cemail" required></label>
+        <label data-i18n="message">Message<textarea name="cmessage" rows="4" required></textarea></label>
+        <button class="btn ghost" type="submit" data-i18n="send">Envoyer</button>
+      </form>
+      <p class="small muted">Email: <a href="mailto:rayan.games812014@gmail.com">rayan.games812014@gmail.com</a></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© <span id="year"></span> Rayan Games — Tous droits réservés</div>
+    <div class="socials">FB · IG · TikTok</div>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
