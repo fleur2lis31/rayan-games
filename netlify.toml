@@ -1,0 +1,5 @@
+[build]
+  # Indique à Netlify de regarder à la racine (car nous allons déplacer les fichiers ici)
+  base = ""
+  # Le contenu final à publier est la racine elle-même.
+  publish = "."
