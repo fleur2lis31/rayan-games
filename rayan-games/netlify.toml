@@ -1,0 +1,6 @@
+# Configuration de base pour Netlify
+[build]
+  # Indique à Netlify que le site est dans ce sous-dossier
+  base = "jeux-rayan"
+  # Ne spécifie aucun répertoire de publication (laisse Netlify deviner)
+  publish = ""
