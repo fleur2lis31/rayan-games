@@ -1,15 +1,13 @@
 // Correction: Utilisation de require() au lieu de import pour la compatibilité CommonJS
 const fs = require('fs');
 const path = require('path');
-// Node-fetch est nécessaire pour simuler le téléchargement/l'accès à une liste externe
+// Node-fetch est nécessaire, si tu l'utilises, il faut l'installer dans package.json
 const fetch = require('node-fetch'); 
 
 // --- 1. CHEMINS DES FICHIERS ET DONNÉES DE BASE ---
-// On utilise path.join(__dirname, '..', '...') pour s'assurer que le chemin est correct depuis le dossier 'scripts'
 const INDEX_PATH = path.join(__dirname, '..', 'index.html');
 const GAMES_ASSETS_DIR = path.join(__dirname, '..', 'assets', 'jeux');
-const GAMES_JSON_PATH = path.join(__dirname, '..', 'games_data.json'); // Fichier pour suivre les jeux
-const SOURCE_URL = 'https://api.example.com/gamelist'; // URL Fictive pour l'exemple
+const SOURCE_URL = 'https://api.example.com/gamelist'; 
 
 // --- 2. LOGIQUE DE SIMULATION D'IMPORTATION (10 jeux/jour) ---
 async function fetchNewGameData() {
@@ -41,7 +39,7 @@ async function main() {
     // 1. Récupérer les nouveaux jeux (simulation)
     const newGamesData = await fetchNewGameData();
     
-    // 2. Préparer le dossier des assets si besoin (pour l'exemple)
+    // 2. Préparer le dossier des assets si besoin 
     if (!fs.existsSync(GAMES_ASSETS_DIR)) {
         fs.mkdirSync(GAMES_ASSETS_DIR, { recursive: true });
     }
@@ -57,7 +55,7 @@ async function main() {
     
     // 4. Générer le HTML pour les nouvelles cartes de jeu
     const newCardsHTML = newGamesData.map(game => `
-        <div class="game-card" data-category="${game.category}" style="opacity: 0; animation: fadeIn 0.5s forwards;">
+        <div class="game-card" data-category="${game.category}">
             <img src="https://picsum.photos/300/200?random=${game.id.hashCode()}" alt="${game.title}">
             <h3>${game.title}</h3>
             <p>${game.description}</p>
@@ -65,16 +63,14 @@ async function main() {
         </div>
     `).join('\n');
 
-    // 5. Définir le point d'insertion dans index.html
-    // Le script insérera les jeux juste AVANT la section "Contact / Support"
-    const insertionPointRegex = /(<\/section>\s*<section id="sponsors">)/; // Cherche la fermeture de la section jeux
+    // 5. Définir le point d'insertion (juste avant la section sponsors)
+    const insertionPointRegex = /(<\/section>\s*<section id="sponsors">)/; 
     
     // 6. Insérer le nouveau code HTML dans le fichier
     if (indexContent.match(insertionPointRegex)) {
         const updatedContent = indexContent.replace(
             insertionPointRegex,
             (match) => {
-                // On insère les nouvelles cartes APRES la liste existante et AVANT les sponsors
                 return newCardsHTML + match;
             }
         );
