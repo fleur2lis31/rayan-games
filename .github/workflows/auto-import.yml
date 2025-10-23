@@ -17,10 +17,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        fetch-depth: 0
-        
-    - name: Pull latest changes
-      run: git pull origin main
         
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -36,9 +32,11 @@ jobs:
     - name: Run Game Import Script
       run: npm run auto-import
       
-    - name: Commit and push changes
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git add assets/
-        git diff --staged --quiet || (git commit -m "🤖 Auto-import: nouveaux jeux [skip ci]" && git push)
+    - name: Commit and push
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "🤖 Auto-import: nouveaux jeux"
+        file_pattern: 'assets/*'
+        commit_user_name: 'github-actions[bot]'
+        commit_user_email: 'github-actions[bot]@users.noreply.github.com'
+        push_options: '--force-if-possible'
