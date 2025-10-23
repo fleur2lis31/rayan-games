@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة الخط العربي - Rayan Games</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 مدرسة الخط العربي</h1>
+        <div class="game-area">
+            <canvas id="drawingCanvas" width="800" height="400"></canvas>
+            <div class="controls">
+                <button id="clearBtn">مسح</button>
+                <button id="saveBtn">حفظ</button>
+                <select id="letterSelect">
+                    <option value="alif">ألف</option>
+                    <option value="ba">باء</option>
+                    <option value="jeem">جيم</option>
+                    <option value="dal">دال</option>
+                </select>
+            </div>
+            <div class="guide">
+                <img id="letterGuide" src="" alt="دليل الخط">
+            </div>
+        </div>
+        <div class="info">
+            <h3>تعلم الخط العربي بطريقة ممتعة!</h3>
+            <p>اتبع النمط ومارس كتابة الحروف العربية</p>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
