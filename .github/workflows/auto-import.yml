@@ -14,7 +14,6 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        fetch-depth: 0  # Récupère tout l'historique
         
     - name: Setup Node.js
       uses: actions/setup-node@v4
@@ -30,25 +29,19 @@ jobs:
     - name: Run Game Import Script
       run: npm run auto-import
       
-    - name: Configure Git
+    - name: Setup Git
       run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
         
-    - name: Add and Commit changes
+    - name: Check for changes
+      id: git-check
       run: |
-        git add assets/
-        # Vérifier s'il y a des changements
-        if ! git diff --staged --quiet; then
-          git commit -m "🤖 Auto-import: nouveaux jeux [skip ci]"
-          echo "✅ Changements commités"
-        else
-          echo "ℹ️  Aucun changement détecté"
-        fi
+        echo "changes=$(git status --porcelain)" >> $GITHUB_OUTPUT
         
-    - name: Push changes
+    - name: Commit and Push if changes
+      if: steps.git-check.outputs.changes
       run: |
-        # Tirer les derniers changements et fusionner
-        git pull origin main --rebase --autostash
-        # Pousser les changements
-        git push origin main
+        git add -A
+        git commit -m "🤖 Auto-import: nouveaux jeux [skip ci]"
+        git push
