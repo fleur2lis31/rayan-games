@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
 // Fonction pour analyser les performances du store
 function analyzeStorePerformance() {
@@ -123,9 +123,9 @@ function generateDetailedReport() {
 }
 
 // Exécuter l'analyse
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (require.main === module) {
     analyzeStorePerformance();
     generateDetailedReport();
 }
 
-export { analyzeStorePerformance, generateDetailedReport };
+module.exports = { analyzeStorePerformance, generateDetailedReport };
