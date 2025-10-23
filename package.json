@@ -1,14 +1,23 @@
 {
-  "name": "myum-games",
-  "version": "1.4.0",
+  "name": "rayan-games",
+  "version": "1.0.0",
+  "description": "Plateforme de jeux HTML5 téléchargeables",
   "type": "module",
   "scripts": {
+    "auto-import": "node scripts/auto-import.js",
     "store-bench": "node scripts/store-bench.js",
-    "auto-import": "node scripts/auto-import.js"
+    "dev": "node scripts/auto-import.js && echo 'Import terminé'",
+    "build": "echo 'Build completed'"
   },
   "dependencies": {
     "node-fetch": "^3.3.2"
   },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "keywords": ["games", "html5", "downloadable"],
+  "author": "Rayan Games",
+  "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
   }
