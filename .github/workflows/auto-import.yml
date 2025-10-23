@@ -2,19 +2,20 @@ name: Auto Import Games
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Toutes les 6 heures
-  workflow_dispatch:  # Permet un déclenchement manuel
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
 
 jobs:
   import-games:
     runs-on: ubuntu-latest
     
+    permissions:
+      contents: write
+    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        
+      
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
@@ -29,11 +30,10 @@ jobs:
     - name: Run Game Import Script
       run: npm run auto-import
       
-    - name: Commit and push if changes
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git add assets/
-        git diff --staged --quiet || (git commit -m "🤖 Auto-import: nouveaux jeux [skip ci]" && git push)
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Auto commit and push
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "🤖 Auto-import: nouveaux jeux"
+        file_pattern: 'assets/*'
+        commit_user_name: 'github-actions[bot]'
+        commit_user_email: 'github-actions[bot]@users.noreply.github.com'
