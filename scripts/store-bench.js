@@ -3,15 +3,15 @@ import path from 'path';
 
 // Fonction pour analyser les performances du store
 function analyzeStorePerformance() {
-    const gamesDir = path.join(process.cwd(), 'games');
-    const gamesJsonPath = path.join(process.cwd(), 'games.json');
+    const gamesDir = path.join(process.cwd(), 'assets', 'games');
+    const gamesJsonPath = path.join(process.cwd(), 'assets', 'games.json');
     
     console.log('📊 Analyse des performances du store...');
     
     try {
-        // Vérifier si le dossier games existe
+        // Vérifier si le dossier assets/games existe
         if (!fs.existsSync(gamesDir)) {
-            console.log('❌ Dossier games non trouvé');
+            console.log('❌ Dossier assets/games non trouvé');
             return;
         }
         
@@ -19,7 +19,7 @@ function analyzeStorePerformance() {
         const gameFiles = fs.readdirSync(gamesDir).filter(file => file.endsWith('.json'));
         console.log(`🎮 Nombre total de jeux: ${gameFiles.length}`);
         
-        // Analyser games.json s'il existe
+        // Analyser assets/games.json s'il existe
         if (fs.existsSync(gamesJsonPath)) {
             const gamesData = JSON.parse(fs.readFileSync(gamesJsonPath, 'utf8'));
             
@@ -72,18 +72,18 @@ function analyzeStorePerformance() {
 
 // Fonction pour générer un rapport détaillé
 function generateDetailedReport() {
-    const gamesJsonPath = path.join(process.cwd(), 'games.json');
+    const gamesJsonPath = path.join(process.cwd(), 'assets', 'games.json');
     
     try {
         if (!fs.existsSync(gamesJsonPath)) {
-            console.log('❌ Fichier games.json non trouvé');
+            console.log('❌ Fichier assets/games.json non trouvé');
             return;
         }
         
         const gamesData = JSON.parse(fs.readFileSync(gamesJsonPath, 'utf8'));
         
         console.log('\n📋 RAPPORT DÉTAILLÉ DU STORE');
-        console.log('=' .repeat(40));
+        console.log('='.repeat(40));
         
         // Top 5 jeux par prix
         const topByPrice = [...gamesData].sort((a, b) => b.price - a.price).slice(0, 5);
