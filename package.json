@@ -1,12 +1,15 @@
 {
   "name": "rayan-games",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
+  "description": "Plateforme avec 100 jeux HTML5 gratuits",
   "scripts": {
     "auto-import": "node scripts/auto-import.js",
-    "store-bench": "node scripts/store-bench.js"
+    "store-bench": "node scripts/store-bench.js",
+    "dev": "npm run auto-import"
   },
-  "dependencies": {
-    "node-fetch": "^3.3.2"
-  }
+  "dependencies": {},
+  "keywords": ["games", "html5", "free", "100-games"],
+  "author": "Rayan Games",
+  "license": "MIT"
 }
