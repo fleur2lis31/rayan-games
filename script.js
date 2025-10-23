@@ -1,176 +1,105 @@
-// scripts.js - Gestion de l'affichage des jeux
-class GameStore {
-    constructor() {
-        this.games = [];
-        this.filteredGames = [];
-        this.currentCategory = 'all';
-        this.init();
+// script.js - language switcher & small interactions
+const translations = {
+  fr: {
+    tag: "Jeux légers — téléchargeables — sécurisé",
+    discover: "Découvrir les jeux",
+    our_games: "Nos jeux",
+    lead: "Télécharge et joue — promotion lancement.",
+    game1_title: "Runner Neon",
+    game1_desc: "Un jeu d’arcade rapide — test gratuit.",
+    game2_title: "Puzzle Galaxy",
+    game2_desc: "Puzzle relaxant, idéal pour mobile.",
+    play_online: "Télécharger (test)",
+    buy: "Télécharger — {price} DA",
+    contact: "Contact / Support",
+    contact_text: "Besoin d’aide ? Envoie un message.",
+    name: "Ton nom",
+    email: "Ton email",
+    message: "Message",
+    send: "Envoyer"
+  },
+  eng: {
+    tag: "Lightweight games — downloadable — secure",
+    discover: "Discover games",
+    our_games: "Our games",
+    lead: "Download and play — launch offer.",
+    game1_title: "Runner Neon",
+    game1_desc: "A fast arcade runner — free test.",
+    game2_title: "Puzzle Galaxy",
+    game2_desc: "Relaxing puzzle, great for mobile.",
+    play_online: "Download (test)",
+    buy: "Download — {price} DZD",
+    contact: "Contact / Support",
+    contact_text: "Need help? Send a message.",
+    name: "Your name",
+    email: "Your email",
+    message: "Message",
+    send: "Send"
+  },
+  ar: {
+    tag: "ألعاب خفيفة — قابلة للتحميل — آمنة",
+    discover: "اكتشف الألعاب",
+    our_games: "ألعابنا",
+    lead: "قم بالتنزيل واللعب — عرض الإطلاق.",
+    game1_title: "عداء النيون",
+    game1_desc: "لعبة أركيد سريعة — تجربة مجانية.",
+    game2_title: "لغز المجرة",
+    game2_desc: "لغز مريح، مثالي للجوال.",
+    play_online: "تحميل (تجريبي)",
+    buy: "تحميل — {price} دج",
+    contact: "اتصل / الدعم",
+    contact_text: "بحاجة للمساعدة؟ أرسل رسالة.",
+    name: "اسمك",
+    email: "بريدك الإلكتروني",
+    message: "الرسالة",
+    send: "إرسال"
+  }
+};
+
+function setText(lang) {
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(translations[lang] && translations[lang][key]) {
+      el.textContent = translations[lang][key];
     }
-
-    async init() {
-        await this.loadGames();
-        this.renderGames();
-        this.setupEventListeners();
-        this.renderCategoryFilters();
-    }
-
-    async loadGames() {
-        try {
-            const response = await fetch('assets/games.json');
-            this.games = await response.json();
-            this.filteredGames = [...this.games];
-            console.log(`✅ ${this.games.length} jeux chargés depuis assets/games.json`);
-        } catch (error) {
-            console.error('❌ Erreur lors du chargement des jeux:', error);
-            this.games = [];
-            this.filteredGames = [];
-        }
-    }
-
-    renderCategoryFilters() {
-        const filtersContainer = document.getElementById('filters-container');
-        if (!filtersContainer) return;
-
-        const categories = ['all', ...new Set(this.games.map(game => game.category))];
-        
-        filtersContainer.innerHTML = categories.map(category => `
-            <button class="category-filter ${category === 'all' ? 'active' : ''}" 
-                    data-category="${category}">
-                ${category === 'all' ? '🎮 Tous' : category}
-            </button>
-        `).join('');
-
-        // Ajouter les écouteurs d'événements
-        filtersContainer.querySelectorAll('.category-filter').forEach(filter => {
-            filter.addEventListener('click', (e) => {
-                const category = e.target.dataset.category;
-                this.filterByCategory(category);
-                
-                // Mettre à jour les filtres actifs
-                filtersContainer.querySelectorAll('.category-filter').forEach(f => 
-                    f.classList.remove('active'));
-                e.target.classList.add('active');
-            });
-        });
-    }
-
-    renderGames() {
-        const container = document.getElementById('games-container');
-        if (!container) return;
-
-        if (this.filteredGames.length === 0) {
-            container.innerHTML = '<p class="no-games">Aucun jeu trouvé</p>';
-            return;
-        }
-
-        container.innerHTML = this.filteredGames.map(game => `
-            <div class="game-card" data-category="${game.category}">
-                <div class="game-image">
-                    <img src="${game.image || 'assets/images/default-game.jpg'}" 
-                         alt="${game.name}" 
-                         onerror="this.src='assets/images/default-game.jpg'">
-                </div>
-                <div class="game-info">
-                    <h3>${game.name}</h3>
-                    <p class="game-description">${game.description}</p>
-                    <div class="game-meta">
-                        <span class="category">${game.category}</span>
-                        <span class="price">${game.price} UM</span>
-                    </div>
-                    <div class="game-rating">
-                        ${this.generateStars(game.rating)}
-                        <span>${game.rating}/5 • ${game.downloads} téléchargements</span>
-                    </div>
-                    <div class="game-developer">
-                        <small>Par ${game.developer}</small>
-                    </div>
-                    <button class="play-btn" onclick="gameStore.playGame('${game.id}')">
-                        🎮 Jouer
-                    </button>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    generateStars(rating) {
-        const fullStars = Math.floor(rating);
-        const halfStar = rating % 1 >= 0.5;
-        const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
-
-        return '★'.repeat(fullStars) + (halfStar ? '½' : '') + '☆'.repeat(emptyStars);
-    }
-
-    filterByCategory(category) {
-        this.currentCategory = category;
-        this.filteredGames = category === 'all' 
-            ? [...this.games] 
-            : this.games.filter(game => game.category === category);
-        this.renderGames();
-    }
-
-    searchGames(query) {
-        const searchTerm = query.toLowerCase();
-        this.filteredGames = this.games.filter(game => 
-            game.name.toLowerCase().includes(searchTerm) ||
-            game.description.toLowerCase().includes(searchTerm) ||
-            game.category.toLowerCase().includes(searchTerm) ||
-            (game.tags && game.tags.some(tag => tag.toLowerCase().includes(searchTerm)))
-        );
-        this.renderGames();
-    }
-
-    playGame(gameId) {
-        const game = this.games.find(g => g.id === gameId);
-        if (game && game.file) {
-            window.open(game.file, '_blank');
-        } else {
-            alert('Jeu en cours de développement ! 🚧\nRevenez bientôt !');
-        }
-    }
-
-    setupEventListeners() {
-        // Barre de recherche
-        const searchInput = document.getElementById('search-input');
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
-                this.searchGames(e.target.value);
-            });
-        }
-
-        // Tri des jeux
-        const sortSelect = document.getElementById('sort-select');
-        if (sortSelect) {
-            sortSelect.addEventListener('change', (e) => {
-                this.sortGames(e.target.value);
-            });
-        }
-    }
-
-    sortGames(criteria) {
-        switch(criteria) {
-            case 'price-asc':
-                this.filteredGames.sort((a, b) => a.price - b.price);
-                break;
-            case 'price-desc':
-                this.filteredGames.sort((a, b) => b.price - a.price);
-                break;
-            case 'name':
-                this.filteredGames.sort((a, b) => a.name.localeCompare(b.name));
-                break;
-            case 'rating':
-                this.filteredGames.sort((a, b) => b.rating - a.rating);
-                break;
-            default:
-                // Ordre par défaut
-                this.filteredGames = [...this.games];
-                this.filterByCategory(this.currentCategory);
-                return;
-        }
-        this.renderGames();
-    }
+  });
+  // special: update buy buttons with price
+  document.querySelectorAll('.purchase').forEach(btn=>{
+    const price = btn.getAttribute('data-price') || '0';
+    const text = (translations[lang] && translations[lang].buy) ? translations[lang].buy.replace('{price}', price) : 'Buy';
+    btn.textContent = text;
+  });
+  // RTL for Arabic
+  document.documentElement.dir = (lang === 'ar') ? 'rtl' : 'ltr';
 }
 
-// Initialiser le store quand la page est chargée
-document.addEventListener('DOMContentLoaded', () => {
-    window.gameStore = new GameStore();
+document.addEventListener('DOMContentLoaded', ()=>{
+  const btns = document.querySelectorAll('.lang-btn');
+  btns.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      btns.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      setText(b.getAttribute('data-lang'));
+    });
+  });
+  // default
+  setText('fr');
+
+  // Purchase button demo (just show alert, real flow via Netlify Forms later)
+  document.querySelectorAll('.purchase').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const file = btn.getAttribute('data-file');
+      const price = btn.getAttribute('data-price');
+      alert('Pour tester: envoyer une preuve de paiement à rayan.games812014@gmail.com\nFichier demandé: ' + file + ' — Prix: ' + price + ' DZD');
+    });
+  });
+
+  // contact form basic handler
+  document.getElementById('contactForm')?.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    alert('Merci — message envoyé (simulation).');
+    e.target.reset();
+  });
+
+  document.getElementById('year').textContent = new Date().getFullYear();
 });
