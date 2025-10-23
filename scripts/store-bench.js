@@ -1,5 +1,9 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 function analyzeStorePerformance() {
     const gamesDir = path.join(process.cwd(), 'assets', 'games');
@@ -8,32 +12,20 @@ function analyzeStorePerformance() {
     console.log('📊 Analyse des performances du store...\n');
     
     try {
-        // Vérifier l'existence des fichiers
-        if (!fs.existsSync(gamesDir)) {
-            console.log('❌ Dossier assets/games non trouvé');
-            return;
-        }
-        
         if (!fs.existsSync(gamesJsonPath)) {
             console.log('❌ Fichier assets/games.json non trouvé');
             return;
         }
         
         const gamesData = JSON.parse(fs.readFileSync(gamesJsonPath, 'utf8'));
-        const gameFiles = fs.readdirSync(gamesDir).filter(file => file.endsWith('.json'));
         
         console.log(`🎮 Statistiques générales:`);
-        console.log(`   - Jeux dans games.json: ${gamesData.length}`);
-        console.log(`   - Fichiers dans assets/games/: ${gameFiles.length}`);
-        console.log(`   - Synchronisation: ${gamesData.length === gameFiles.length ? '✅ OK' : '⚠️ Incohérent'}`);
+        console.log(`   - Total jeux: ${gamesData.length}`);
         
         // Analyse par catégorie
         const categories = {};
-        let totalRevenue = 0;
-        
         gamesData.forEach(game => {
             categories[game.category] = (categories[game.category] || 0) + 1;
-            totalRevenue += game.price * game.downloads;
         });
         
         console.log('\n📈 Répartition par catégorie:');
@@ -49,14 +41,6 @@ function analyzeStorePerformance() {
         console.log('\n💰 Métriques financières:');
         console.log(`   - Prix moyen: ${Math.round(avgPrice)} DA`);
         console.log(`   - Téléchargements totaux: ${totalDownloads}`);
-        console.log(`   - Revenu estimé: ${Math.round(totalRevenue / 1000)}k DA`);
-        
-        // Jeux populaires
-        const popularGames = [...gamesData].sort((a, b) => b.downloads - a.downloads).slice(0, 3);
-        console.log('\n🏆 Top 3 jeux populaires:');
-        popularGames.forEach((game, index) => {
-            console.log(`   ${index + 1}. ${game.name} - ${game.downloads} téléchargements`);
-        });
         
         console.log('\n✅ Analyse terminée avec succès!');
         
@@ -66,8 +50,6 @@ function analyzeStorePerformance() {
 }
 
 // Exécuter si appelé directement
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     analyzeStorePerformance();
 }
-
-module.exports = { analyzeStorePerformance };
