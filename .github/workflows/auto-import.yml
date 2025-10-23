@@ -2,8 +2,8 @@ name: Auto Import Games
 
 on:
   schedule:
-    - cron: '0 */6 * * *'
-  workflow_dispatch:
+    - cron: '0 */6 * * *'  # Toutes les 6 heures
+  workflow_dispatch:  # Permet un déclenchement manuel
 
 jobs:
   import-games:
@@ -15,7 +15,9 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
+      with:
+        fetch-depth: 0  # Important pour récupérer tout l'historique
+        
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
@@ -25,15 +27,23 @@ jobs:
     - name: Install dependencies
       run: |
         npm install
-        mkdir -p assets/games assets/images
+        mkdir -p assets/games assets/images assets/downloads
         
     - name: Run Game Import Script
       run: npm run auto-import
       
-    - name: Auto commit and push
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: "🤖 Auto-import: nouveaux jeux"
-        file_pattern: 'assets/*'
-        commit_user_name: 'github-actions[bot]'
-        commit_user_email: 'github-actions[bot]@users.noreply.github.com'
+    - name: Configure Git
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        
+    - name: Check for changes and commit
+      run: |
+        git add assets/
+        if git diff --staged --quiet; then
+          echo "Aucun changement détecté"
+        else
+          git pull --rebase origin main
+          git commit -m "🤖 Auto-import: nouveaux jeux [skip ci]"
+          git push
+        fi
