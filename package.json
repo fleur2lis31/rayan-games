@@ -1,8 +1,6 @@
 {
   "name": "rayan-games",
   "version": "1.0.0",
-  "description": "Import automatique de jeux HTML5 pour Rayan Games",
-  "main": "scripts/auto-import.js",
   "type": "module",
   "scripts": {
     "auto-import": "node scripts/auto-import.js"
