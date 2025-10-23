@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
-import fetch from 'node-fetch';
+const fs = require('fs');
+const path = require('path');
+const fetch = require('node-fetch');
 
 // --- Configuration des chemins (games dans assets) ---
 const GAMES_DIR = path.join(process.cwd(), 'assets', 'games');
@@ -26,7 +26,7 @@ function generateSampleGames() {
             price: Math.floor(Math.random() * 3 + 1) * 100 + 400,
             image: `assets/images/${gameName.toLowerCase()}${i + 1}.jpg`,
             file: `assets/games/${id}.html`,
-            rating: parseFloat((Math.random() * 2 + 3).toFixed(1)), // 3.0 à 5.0
+            rating: parseFloat((Math.random() * 2 + 3).toFixed(1)),
             downloads: Math.floor(Math.random() * 2000),
             developer: 'UM Games Studio',
             releaseDate: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
