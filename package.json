@@ -1,7 +1,6 @@
 {
   "name": "rayan-games",
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "auto-import": "node scripts/auto-import.js"
   },
