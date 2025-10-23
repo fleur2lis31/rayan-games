@@ -1,0 +1,178 @@
+[
+  {
+    "id": "game_1761244472924_0",
+    "name": "Runner 1",
+    "description": "Jeu Arcade passionnant avec des défis uniques. Développé par Pixel Arts.",
+    "category": "Arcade",
+    "price": 499,
+    "image": "assets/images/game1.jpg",
+    "file": "assets/games/game_1761244472924_0.html",
+    "rating": 4.1,
+    "downloads": 1053,
+    "developer": "Pixel Arts",
+    "releaseDate": "2025-10-23",
+    "tags": [
+      "arcade",
+      "runner"
+    ],
+    "features": [
+      "Multijoueur",
+      "Classements"
+    ],
+    "size": "15.2 MB"
+  },
+  {
+    "id": "game_1761244472924_1",
+    "name": "Fight 2",
+    "description": "Jeu Action passionnant avec des défis uniques. Développé par Cosmic Studio.",
+    "category": "Action",
+    "price": 499,
+    "image": "assets/images/game2.jpg",
+    "file": "assets/games/game_1761244472924_1.html",
+    "rating": 4.6,
+    "downloads": 2023,
+    "developer": "Cosmic Studio",
+    "releaseDate": "2025-10-23",
+    "tags": [
+      "action",
+      "fight"
+    ],
+    "features": [
+      "Multijoueur",
+      "Classements"
+    ],
+    "size": "15.2 MB"
+  },
+  {
+    "id": "game_1761244472924_2",
+    "name": "Race 3",
+    "description": "Jeu Sport passionnant avec des défis uniques. Développé par Retro Devs.",
+    "category": "Sport",
+    "price": 299,
+    "image": "assets/images/game3.jpg",
+    "file": "assets/games/game_1761244472924_2.html",
+    "rating": 3.9,
+    "downloads": 883,
+    "developer": "Retro Devs",
+    "releaseDate": "2025-10-23",
+    "tags": [
+      "sport",
+      "race"
+    ],
+    "features": [
+      "Multijoueur",
+      "Classements"
+    ],
+    "size": "15.2 MB"
+  },
+  {
+    "id": "game_1761244472924_3",
+    "name": "Race 4",
+    "description": "Jeu Action passionnant avec des défis uniques. Développé par Cosmic Studio.",
+    "category": "Action",
+    "price": 499,
+    "image": "assets/images/game4.jpg",
+    "file": "assets/games/game_1761244472924_3.html",
+    "rating": 3.8,
+    "downloads": 1272,
+    "developer": "Cosmic Studio",
+    "releaseDate": "2025-10-23",
+    "tags": [
+      "action",
+      "race"
+    ],
+    "features": [
+      "Multijoueur",
+      "Classements"
+    ],
+    "size": "15.2 MB"
+  },
+  {
+    "id": "game_1761244472924_4",
+    "name": "Jump 5",
+    "description": "Jeu Sport passionnant avec des défis uniques. Développé par Pixel Arts.",
+    "category": "Sport",
+    "price": 299,
+    "image": "assets/images/game5.jpg",
+    "file": "assets/games/game_1761244472924_4.html",
+    "rating": 4.4,
+    "downloads": 687,
+    "developer": "Pixel Arts",
+    "releaseDate": "2025-10-23",
+    "tags": [
+      "sport",
+      "jump"
+    ],
+    "features": [
+      "Multijoueur",
+      "Classements"
+    ],
+    "size": "15.2 MB"
+  },
+  {
+    "id": "game_1761244472924_5",
+    "name": "Jump 6",
+    "description": "Jeu Aventure passionnant avec des défis uniques. Développé par Neon Games.",
+    "category": "Aventure",
+    "price": 499,
+    "image": "assets/images/game6.jpg",
+    "file": "assets/games/game_1761244472924_5.html",
+    "rating": 4.6,
+    "downloads": 684,
+    "developer": "Neon Games",
+    "releaseDate": "2025-10-23",
+    "tags": [
+      "aventure",
+      "jump"
+    ],
+    "features": [
+      "Multijoueur",
+      "Classements"
+    ],
+    "size": "15.2 MB"
+  },
+  {
+    "id": "game_1761244472924_6",
+    "name": "Runner 7",
+    "description": "Jeu Sport passionnant avec des défis uniques. Développé par Neon Games.",
+    "category": "Sport",
+    "price": 399,
+    "image": "assets/images/game7.jpg",
+    "file": "assets/games/game_1761244472924_6.html",
+    "rating": 4.5,
+    "downloads": 500,
+    "developer": "Neon Games",
+    "releaseDate": "2025-10-23",
+    "tags": [
+      "sport",
+      "runner"
+    ],
+    "features": [
+      "Multijoueur",
+      "Classements"
+    ],
+    "size": "15.2 MB"
+  },
+  {
+    "id": "game_1761244472924_7",
+    "name": "Runner 8",
+    "description": "Jeu Aventure passionnant avec des défis uniques. Développé par Pixel Arts.",
+    "category": "Aventure",
+    "price": 499,
+    "image": "assets/images/game8.jpg",
+    "file": "assets/games/game_1761244472924_7.html",
+    "rating": 4.8,
+    "downloads": 620,
+    "developer": "Pixel Arts",
+    "releaseDate": "2025-10-23",
+    "tags": [
+      "aventure",
+      "runner"
+    ],
+    "features": [
+      "Multijoueur",
+      "Classements"
+    ],
+    "size": "15.2 MB"
+  }
+]

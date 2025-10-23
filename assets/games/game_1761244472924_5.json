@@ -1,0 +1,22 @@
+{
+  "id": "game_1761244472924_5",
+  "name": "Jump 6",
+  "description": "Jeu Aventure passionnant avec des défis uniques. Développé par Neon Games.",
+  "category": "Aventure",
+  "price": 499,
+  "image": "assets/images/game6.jpg",
+  "file": "assets/games/game_1761244472924_5.html",
+  "rating": 4.6,
+  "downloads": 684,
+  "developer": "Neon Games",
+  "releaseDate": "2025-10-23",
+  "tags": [
+    "aventure",
+    "jump"
+  ],
+  "features": [
+    "Multijoueur",
+    "Classements"
+  ],
+  "size": "15.2 MB"
+}
