@@ -1,10 +1,12 @@
 {
-  "name": "rayan-games",
-  "version": "1.0.0",
+  "name": "myum-games",
+  "version": "1.4.0",
+  "type": "module",
   "scripts": {
+    "store-bench": "node scripts/store-bench.js",
     "auto-import": "node scripts/auto-import.js"
   },
   "dependencies": {
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^2.6.7"
   }
 }
