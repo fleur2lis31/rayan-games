@@ -1,12 +1,11 @@
 {
   "name": "myum-games",
-  "version": "1.4.0",
+  "version": "1.4.x8",
   "type": "module",
   "scripts": {
-    "store-bench": "node scripts/store-bench.js",
-    "auto-import": "node scripts/auto-import.js"
+    "store-bench": "node scripts/store-bench.js"
   },
   "dependencies": {
-    "node-fetch": "^2.6.7"
+    "node-fetch": "0.3.x7"
   }
 }
