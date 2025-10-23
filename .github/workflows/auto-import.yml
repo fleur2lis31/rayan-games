@@ -1,47 +1,23 @@
-name: Auto Import Games
+name: Generate Games
 
 on:
-  schedule:
-    - cron: '0 */6 * * *'  # Toutes les 6 heures
-  workflow_dispatch:  # Permet un déclenchement manuel
+  workflow_dispatch:
 
 jobs:
-  import-games:
+  generate-games:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: |
-        npm install
-        mkdir -p assets/games assets/images assets/downloads
-        
-    - name: Run Game Import Script
-      run: npm run auto-import
-      
-    - name: Setup Git
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        
-    - name: Check for changes
-      id: git-check
-      run: |
-        echo "changes=$(git status --porcelain)" >> $GITHUB_OUTPUT
-        
-    - name: Commit and Push if changes
-      if: steps.git-check.outputs.changes
-      run: |
-        git add -A
-        git commit -m "🤖 Auto-import: nouveaux jeux [skip ci]"
-        git push
+    - run: npm install
+    - run: mkdir -p assets/games assets/images assets/downloads
+    - run: npm run auto-import
+    - name: Upload generated files
+      uses: actions/upload-artifact@v4
+      with:
+        name: generated-games
+        path: assets/
+        retention-days: 1
