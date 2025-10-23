@@ -1,32 +1,51 @@
-name: Auto Import Daily Games
+// scripts/auto-import.js
+// ----------------------------------------------------
+// 🤖 Script automatique pour importer 10 jeux HTML5/jour
+// ----------------------------------------------------
 
-# Déclenche l'action tous les jours à 9h00 UTC
-on:
-  schedule:
-    - cron: '0 9 * * *'
-  # Permet de lancer l'action manuellement depuis l'interface GitHub
-  workflow_dispatch:
+import fs from "fs";
+import fetch from "node-fetch";
 
-jobs:
-  import-games:
-    runs-on: ubuntu-latest
+// 📂 Dossier où seront ajoutés les jeux
+const GAMES_DIR = "./assets/games";
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+// 📁 Fichier JSON listant les jeux visibles sur ton site
+const GAMES_JSON = "./assets/games/games.json";
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
+// 🔗 Source libre de jeux HTML5
+const SOURCE_URL = "https://api.npoint.io/93bed93a99df4c91044e"; // exemple de dataset libre (à personnaliser plus tard)
 
-      - name: Run Game Importer Script
-        # Exécute le fichier JS que tu viens de créer
-        run: node scripts/auto-import.js
+async function main() {
+  console.log("🚀 Import automatique de 10 jeux...");
 
-      - name: Commit and Push new games
-        # Ajoute les modifications (nouveaux jeux) au dépôt
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "🤖 Auto: Ajout de 10 nouveaux jeux HTML5"
-          branch: principal
+  // Vérifie si le dossier existe
+  if (!fs.existsSync(GAMES_DIR)) fs.mkdirSync(GAMES_DIR, { recursive: true });
+
+  // Télécharge une liste de jeux depuis une source libre
+  const res = await fetch(SOURCE_URL);
+  const data = await res.json();
+
+  // Sélectionne 10 jeux aléatoires
+  const newGames = data.sort(() => 0.5 - Math.random()).slice(0, 10);
+
+  // Charge le fichier JSON existant (ou crée un nouveau)
+  let existingGames = [];
+  if (fs.existsSync(GAMES_JSON)) {
+    existingGames = JSON.parse(fs.readFileSync(GAMES_JSON, "utf8"));
+  }
+
+  // Ajoute les nouveaux jeux s'ils ne sont pas déjà dans la liste
+  const updatedGames = [
+    ...existingGames,
+    ...newGames.filter(g => !existingGames.some(e => e.title === g.title)),
+  ];
+
+  // Écrit le nouveau fichier JSON
+  fs.writeFileSync(GAMES_JSON, JSON.stringify(updatedGames, null, 2));
+  console.log(`✅ ${newGames.length} nouveaux jeux ajoutés.`);
+}
+
+main().catch(err => {
+  console.error("❌ Erreur d'import :", err);
+  process.exit(1);
+});
