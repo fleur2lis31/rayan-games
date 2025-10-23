@@ -1,6 +1,6 @@
 // scripts/auto-import.js
-const fs = require("fs");
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+import fs from "fs";
+import fetch from "node-fetch";
 
 const GAMES_DIR = "./assets/games";
 const GAMES_JSON = "./assets/games/games.json";
@@ -13,6 +13,7 @@ async function main() {
 
   const res = await fetch(SOURCE_URL);
   const data = await res.json();
+
   const newGames = data.sort(() => 0.5 - Math.random()).slice(0, 10);
 
   let existingGames = [];
