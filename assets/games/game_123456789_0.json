@@ -1,0 +1,15 @@
+{
+  "id": "game_123456789_0",
+  "name": "Runner #1",
+  "description": "Un nouveau jeu de type Action. Dans ce jeu, vous devez survivre à des défis passionnants.",
+  "category": "Action",
+  "price": 500,
+  "image": "assets/runner1.jpg",
+  "file": "games/runner1.html",
+  "rating": 4.5,
+  "downloads": 1250,
+  "developer": "UM Games Studio",
+  "releaseDate": "2024-01-15",
+  "tags": ["course", "aventure", "rapide"],
+  "features": ["Multijoueur", "Classements", "Achievements"]
+}
