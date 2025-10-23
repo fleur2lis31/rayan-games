@@ -2,8 +2,8 @@ name: Auto Import Daily Games
 
 on:
   schedule:
-    - cron: '0 9 * * *'
-  workflow_dispatch:
+    - cron: '0 9 * * *'    # Tous les jours à 9h UTC
+  workflow_dispatch:         # Lancer manuellement depuis GitHub
 
 jobs:
   import-games:
