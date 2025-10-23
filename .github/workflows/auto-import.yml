@@ -12,21 +12,28 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
-    - name: Set up Node.js
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: '18'
         cache: 'npm'
         
     - name: Install dependencies
-      run: npm install
-      
+      run: |
+        npm install
+        # Créer le dossier assets s'il n'existe pas
+        mkdir -p assets/games assets/images
+        
     - name: Run Game Import Script
       run: npm run auto-import
       
-    - name: Create and Push new games
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: "🤖 Auto-import de nouveaux jeux HTML5"
-        branch: main
+    - name: Commit and push if changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add assets/games.json assets/games/
+        git diff --staged --quiet || git commit -m "🤖 Auto-import: nouveaux jeux [skip ci]"
+        git push
