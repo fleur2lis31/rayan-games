@@ -1,7 +1,7 @@
 // scripts/auto-import.js
 // ----------------------------------------------------
 // 🤖 Script automatique pour importer 10 jeux HTML5/jour
-// Compatible avec Node.js sans "type": "module"
+// Compatible GitHub Actions (Node.js CommonJS)
 // ----------------------------------------------------
 
 const fs = require("fs");
@@ -13,8 +13,8 @@ const GAMES_DIR = "./assets/games";
 // 📁 Fichier JSON listant les jeux visibles sur ton site
 const GAMES_JSON = "./assets/games/games.json";
 
-// 🔗 Source libre de jeux HTML5 (dataset public d’exemple)
-const SOURCE_URL = "https://api.npoint.io/93bed93a99df4c91044e"; // à personnaliser plus tard
+// 🔗 Source libre de jeux HTML5 (exemple)
+const SOURCE_URL = "https://api.npoint.io/93bed93a99df4c91044e";
 
 async function main() {
   console.log("🚀 Import automatique de 10 jeux...");
