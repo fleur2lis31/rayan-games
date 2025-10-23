@@ -2,8 +2,8 @@ name: Auto Import Daily Games
 
 on:
   schedule:
-    - cron: '0 9 * * *'
-  workflow_dispatch:
+    - cron: '0 9 * * *'   # Tous les jours à 9h00 UTC
+  workflow_dispatch:       # Permet de le lancer manuellement
 
 jobs:
   import-games:
@@ -17,6 +17,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+
+      - name: Create games folder
+        run: mkdir -p assets/games
 
       - name: Run Game Importer Script
         run: node scripts/auto-import.js
