@@ -1,31 +1,31 @@
-name: Auto Import Daily Games
+name: Auto Import Games
 
 on:
   schedule:
-    - cron: '0 9 * * *'    # Tous les jours à 9h UTC
-  workflow_dispatch:         # Lancer manuellement depuis GitHub
+    - cron: '0 */6 * * *'  # Toutes les 6 heures
+  workflow_dispatch:  # Permet un déclenchement manuel
 
 jobs:
   import-games:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Game Importer Script
-        run: npm run auto-import
-
-      - name: Commit and Push new games
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: "🤖 Auto: Ajout de 10 nouveaux jeux HTML5"
-          branch: main
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Run Game Import Script
+      run: npm run auto-import
+      
+    - name: Create and Push new games
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "🤖 Auto-import de nouveaux jeux HTML5"
+        branch: main
