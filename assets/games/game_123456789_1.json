@@ -1,0 +1,15 @@
+{
+  "id": "game_123456789_1",
+  "name": "Quest #2",
+  "description": "Un nouveau jeu de type Aventure. Dans ce jeu, vous devez survivre à des défis passionnants.",
+  "category": "Aventure",
+  "price": 600,
+  "image": "assets/quest2.jpg",
+  "file": "games/quest2.html",
+  "rating": 4.8,
+  "downloads": 890,
+  "developer": "Adventure Games Inc",
+  "releaseDate": "2024-02-20",
+  "tags": ["rpg", "exploration", "histoire"],
+  "features": ["Monde ouvert", "Quêtes", "Personnages"]
+}
